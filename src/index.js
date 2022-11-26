@@ -1,6 +1,5 @@
 import express from 'express'
-
-// const express = require('express')
+import './database'
 
 const app = express()
 
@@ -16,4 +15,4 @@ app.get('/', (req, res)=>{
 
 app.post('/', (req,res)=>{
     res.json({message: "Estas realizando una peticion tipo POST! No recibo REQUEST"})
-})
+});
