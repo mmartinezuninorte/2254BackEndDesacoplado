@@ -1,5 +1,5 @@
 import express from 'express'
-import Task from './models/Task'
+import taskRoutes from './routes/task.router'
 
 const app = express()
 
@@ -15,14 +15,6 @@ app.post('/', (req,res)=>{
     res.json({message: "Estas realizando una peticion tipo POST! No recibo REQUEST"})
 });
 
-app.post('/api', async (req, res)=>{
-    const newTask = new Task({
-        title: req.body.title,
-        description: req.body.description
-    })
-    await newTask.save()
-    console.log(newTask)
-    res.json({message: 'Tarea guardada!'})
-})
+app.use('/api/tasks', taskRoutes)
 
 export default app
