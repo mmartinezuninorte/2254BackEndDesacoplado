@@ -1,21 +1,18 @@
 import { Router } from 'express';
 import Task from '../models/Task'
 
+import * as taskCtrl from '../controllers/taskcontroller'
+
 const router = Router()
 
-router.post('/', async (req, res)=>{
-    const newTask = new Task({
-        title: req.body.title,
-        description: req.body.description
-    })
-    await newTask.save()
-    console.log(newTask)
-    res.json({message: 'Tarea guardada!'})
-})
+router.post('/', taskCtrl.newTask)
 
-router.get('/',async (req, res)=>{
-    const tareas = await Task.find()
-    res.json(tareas)
-})
+router.get('/', taskCtrl.findAllTask)
+
+router.get('/:id', taskCtrl.findOneTask)
+
+router.delete('/:id', taskCtrl.deleteTask)
+
+router.put('/:id', taskCtrl.updateTask)
 
 export default router
