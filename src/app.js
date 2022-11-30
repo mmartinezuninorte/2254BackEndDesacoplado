@@ -1,9 +1,10 @@
 import express from 'express'
 import taskRoutes from './routes/task.router'
+import authRoutes from './routes/auth.router'
 
 const app = express()
 
-app.set('port', 3000)
+app.set('port', 3003)
 
 app.use(express.json())
 
@@ -16,5 +17,7 @@ app.post('/', (req,res)=>{
 });
 
 app.use('/api/tasks', taskRoutes)
+
+app.use('/api/auth', authRoutes)
 
 export default app

@@ -9,6 +9,8 @@ router.post('/', taskCtrl.newTask)
 
 router.get('/', taskCtrl.findAllTask)
 
+router.get('/search', taskCtrl.findByName)
+
 router.get('/:id', taskCtrl.findOneTask)
 
 router.delete('/:id', taskCtrl.deleteTask)

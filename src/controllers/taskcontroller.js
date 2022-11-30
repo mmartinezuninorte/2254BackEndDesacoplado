@@ -60,13 +60,27 @@ export const updateTask = async (req, res)=>{
     if (!req.body.title){
       return res.status(400).send({message: "El campo titulo ESTA VACIO!!"})  
     }
-
     try {
         await Task.findByIdAndUpdate(id, req.body)
         res.json({message: `La tarea con id ${id}, ha sido actualizada!`})
     } catch (error) {
         res.status(500).json({
             message: error.message || `Error al actualizar la tarea con id ${id}`
+        })
+    }
+}
+
+//BUSQUEDAS FLEXIBLES POR NOMBRE
+export const findByName = async (req, res)=>{
+    if (!req.body.title) return res.status(400).json({message: "Campo title obligatorio"})
+    const title = req.body.title
+    try {
+        const tareas = await Task.find({title: { $regex: title, $options:'i'}})
+        if (tareas.length===0) return res.status(404).json({message: "No existen coincidencias"})
+        res.json(tareas)  
+    } catch (error) {
+        res.status(500).json({
+            message:  "Opps, algo fallo al consultar el listado de tareas"
         })
     }
 }
